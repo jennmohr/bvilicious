@@ -17,7 +17,7 @@ function Events() {
           subtitle=""
           date="04.11.2024"
           location="TBD"
-          link="/"
+          link="/event/bite-sized-2024"
         />
         <Divider />
         <Event
@@ -25,7 +25,7 @@ function Events() {
           subtitle="South Philly's Pride Festival"
           date="06.22.2024"
           location="700 Block of Catherine St."
-          link="/"
+          link="/event/rainbow-solstice-2024"
         />
       </Box>
     </Container>

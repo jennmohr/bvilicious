@@ -10,10 +10,14 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import logo from "../assets/BVlicious Logo.png";
+import { Link } from "react-router-dom";
 
-const pages = ["About", "Events"];
+const pages = [
+  { name: "About", link: "/#about" },
+  { name: "Events", link: "/#events" },
+];
 
-function Nav() {
+function Nav(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -25,74 +29,81 @@ function Nav() {
   };
 
   return (
-    <AppBar
-      position="static"
-      sx={{
-        backgroundColor: "#fff478",
-        boxShadow: "none",
-        borderBottom: 2,
-        borderColor: "#BBBCBC",
-      }}
-    >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <img src={logo} />
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <img src={logo} style={{ height: 50, marginRight: 25 }} />
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "#363838", display: "block" }}
+    <>
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: "#fff478",
+          boxShadow: "none",
+          borderBottom: 2,
+          borderColor: "#BBBCBC",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <Link to="/">
+                <img src={logo} style={{ height: 50, marginRight: 25 }} />
+              </Link>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                <Typography
-                  variant="overline"
-                  sx={{ fontSize: 15, fontWeight: "bold" }}
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page.name} href={page.link}>
+                    <Typography textAlign="center">{page.name}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            <Link to="/">
+              <img src={logo} style={{ height: 50, marginRight: 25 }} />
+            </Link>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page.name}
+                  href={page.link}
+                  sx={{ my: 2, color: "#363838", display: "block" }}
                 >
-                  {page}
-                </Typography>
-              </Button>
-            ))}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+                  <Typography
+                    variant="overline"
+                    sx={{ fontSize: 15, fontWeight: "bold" }}
+                  >
+                    {page.name}
+                  </Typography>
+                </Button>
+              ))}
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+      {props.children}
+    </>
   );
 }
 
